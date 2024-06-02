@@ -14,7 +14,9 @@ namespace WebApiAutores2.Controllers
         {
             this.context = context;
         }
-        [HttpGet]
+        [HttpGet]  // api/autores
+        [HttpGet("listado")]  //listado
+        [HttpGet("/listado")]
         public async Task<ActionResult<List<Autor>>> Get()
         {
             return await context.Autores.Include(x => x.Libros).ToListAsync();
@@ -23,7 +25,41 @@ namespace WebApiAutores2.Controllers
         [HttpGet("primero")]
         public async Task<ActionResult<Autor>> PrimerAutor()
         {
-            return await context.Autores.FirstOrDefaultAsync();
+            var autor = await context.Autores.FirstOrDefaultAsync();
+
+            if(autor == null)
+            {
+                return NotFound();
+            }
+            return autor;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Autor>> Get(int id)
+        {
+            var autor = await context.Autores.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(autor == null)
+            {
+                return NotFound();
+            }
+
+            return autor;
+        }
+
+
+        [HttpGet("primero/{id:int}")]
+        public async Task<ActionResult<Autor>> AutoresLibros(int id)
+        {
+            
+            var autor = await context.Autores.Include(x => x.Libros).FirstOrDefaultAsync(x => x.Id == id);
+
+            if(autor == null)
+            {
+                return NotFound();
+            }
+
+            return autor;
         }
 
         [HttpPost]
@@ -81,5 +117,18 @@ namespace WebApiAutores2.Controllers
 
         //    return false;
         //}
+
+        [HttpGet("nombre/{nombre}")]
+        public async Task<ActionResult<Autor>> AutorNombre(string nombre)
+        {
+            var autor = await context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre));
+
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+            return autor;
+        }
     }
 }
