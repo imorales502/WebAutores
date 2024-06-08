@@ -8,22 +8,22 @@ namespace WebApiAutores2.Entidades
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
-        [StringLength(maximumLength: 10, ErrorMessage = "El campo {0} no debe superar los {1} carácteres")]
+        [StringLength(maximumLength: 50, ErrorMessage = "El campo {0} no debe superar los {1} carácteres")]
         //[PrimeraLetraMayuscula]
         public string? Nombre { get; set; }
         [Range(15,25)]
         [NotMapped]
         public int Edad { get; set; }
         //[CreditCard]
-        [NotMapped] 
-        public string TarjetaDeCredito { get; set; }
-        [Url]
-        [NotMapped]
-        public string URL { get; set; }
-        [NotMapped]
-        public int Menor { get; set; }
-        [NotMapped]
-        public int Mayor { get; set; }
+        //[NotMapped] 
+        //public string TarjetaDeCredito { get; set; }
+        //[Url]
+        //[NotMapped]
+        //public string URL { get; set; }
+        //[NotMapped]
+        //public int Menor { get; set; }
+        //[NotMapped]
+        //public int Mayor { get; set; }
         public List<Libro>? Libros { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validation)
@@ -39,11 +39,11 @@ namespace WebApiAutores2.Entidades
                 }
             }
 
-            if(Menor > Mayor)
-            {
-                yield return new ValidationResult("Este valor no puede ser más grande que el campo Mayor",
-                    new string[] { nameof(Menor) });
-            }
+            //if(Menor > Mayor)
+            //{
+            //    yield return new ValidationResult("Este valor no puede ser más grande que el campo Mayor",
+            //        new string[] { nameof(Menor) });
+            //}
         }
     }
 }

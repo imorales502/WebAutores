@@ -1,14 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using WebApiAutores2.Controllers;
+using WebApiAutores2.Servicios;
 
 namespace WebApiAutores2
 {
     public class StartUp
     {
-        public StartUp(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        //Código de ejemplo
+        //public StartUp(IConfiguration configuration)
+        //{
+        //    var autoresController = new AutoresController(new ApplicationDbContext(null),
+        //        new ServicioA(new Logger()));
+        //    Configuration = configuration;
+        //}
 
         public IConfiguration Configuration { get; }
 
