@@ -7,13 +7,13 @@ namespace WebApiAutores2
 {
     public class StartUp
     {
-        //Código de ejemplo
-        //public StartUp(IConfiguration configuration)
-        //{
-        //    var autoresController = new AutoresController(new ApplicationDbContext(null),
-        //        new ServicioA(new Logger()));
-        //    Configuration = configuration;
-        //}
+        public StartUp(IConfiguration configuration)
+        {
+            //Código de ejemplo
+            //var autoresController = new AutoresController(new ApplicationDbContext(null),
+            //    new ServicioA(new Logger()));
+            Configuration = configuration;
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -24,6 +24,14 @@ namespace WebApiAutores2
 
             services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("Connection2")));
+
+            //Vamos a configurar un servicio del tipo transitorio
+            services.AddTransient<IServicio, ServicioA>();
+
+            services.AddTransient<ServicioTransient>();
+            services.AddScoped<ServicioScoped>();
+            services.AddSingleton<ServicioSingleton>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
